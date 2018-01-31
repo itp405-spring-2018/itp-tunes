@@ -17,3 +17,7 @@ Route::get('/', function () {
 
 Route::get('/invoices', 'InvoicesController@index');
 Route::get('/invoices/{id}', 'InvoicesController@show');
+
+Route::get('/phpinfo', function() {
+  echo phpinfo();
+});
