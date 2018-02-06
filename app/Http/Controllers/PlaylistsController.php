@@ -38,4 +38,22 @@ class PlaylistsController extends Controller
                 ->withInput();
         }
     }
+
+    public function show($playlistId)
+    {
+        $tracks = DB::table('playlist_track')
+            ->select('Name')
+            ->join('tracks', 'tracks.TrackId', '=', 'playlist_track.TrackId')
+            ->where('PlaylistId', '=', $playlistId)
+            ->get();
+
+        $playlist = DB::table('playlists')
+            ->where('PlaylistId', '=', $playlistId)
+            ->first();
+
+        return view('playlist', [
+            'playlist' => $playlist,
+            'tracks' => $tracks
+        ]);
+    }
 }

@@ -10,6 +10,7 @@ Route::get('/invoices/{id}', 'InvoicesController@show');
 Route::get('/playlists', 'PlaylistsController@index');
 Route::get('/playlists/new', 'PlaylistsController@create');
 Route::post('/playlists', 'PlaylistsController@store');
+Route::get('/playlists/{id}', 'PlaylistsController@show');
 
 Route::get('/phpinfo', function() {
     echo phpinfo();

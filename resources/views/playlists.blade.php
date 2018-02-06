@@ -7,7 +7,11 @@
     <a href="/playlists/new">Add Playlist</a>
     <ul>
         @foreach($playlists as $playlist)
-          <li>{{$playlist->Name}}</li>
+          <li>
+              <a href="/playlists/{{$playlist->PlaylistId}}">
+                  {{$playlist->Name}}
+              </a>
+          </li>
         @endforeach
     </ul>
 @endsection
