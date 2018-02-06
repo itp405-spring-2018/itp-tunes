@@ -15,6 +15,24 @@ class PlaylistsController extends Controller
         ]);
     }
 
+    public function show($playlistId)
+    {
+        $tracks = DB::table('playlist_track')
+            ->select('Name')
+            ->join('tracks', 'tracks.TrackId', '=', 'playlist_track.TrackId')
+            ->where('PlaylistId', '=', $playlistId)
+            ->get();
+
+        $playlist = DB::table('playlists')
+            ->where('PlaylistId', '=', $playlistId)
+            ->first();
+
+        return view('playlist', [
+            'playlist' => $playlist,
+            'tracks' => $tracks
+        ]);
+    }
+
     public function create()
     {
         return view('playlist-create');
@@ -37,23 +55,5 @@ class PlaylistsController extends Controller
                 ->withErrors($validation)
                 ->withInput();
         }
-    }
-
-    public function show($playlistId)
-    {
-        $tracks = DB::table('playlist_track')
-            ->select('Name')
-            ->join('tracks', 'tracks.TrackId', '=', 'playlist_track.TrackId')
-            ->where('PlaylistId', '=', $playlistId)
-            ->get();
-
-        $playlist = DB::table('playlists')
-            ->where('PlaylistId', '=', $playlistId)
-            ->first();
-
-        return view('playlist', [
-            'playlist' => $playlist,
-            'tracks' => $tracks
-        ]);
     }
 }
