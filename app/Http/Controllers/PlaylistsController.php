@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Validator;
+use App\Playlist;
 
 class PlaylistsController extends Controller
 {
     public function index()
     {
-        $playlists = DB::table('playlists')->get();
+        // $playlists = DB::table('playlists')->get();
+        $playlists = Playlist::all();
         return view('playlist-list', [
             'playlists' => $playlists
         ]);
@@ -18,14 +20,16 @@ class PlaylistsController extends Controller
 
     public function show($playlistID)
     {
-        $playlist = DB::table('playlists')
-            ->where('PlaylistId', '=', $playlistID)
-            ->first();
+        // $playlist = DB::table('playlists')
+        //     ->where('PlaylistId', '=', $playlistID)
+        //     ->first();
+        $playlist = Playlist::find($playlistID);
 
-        $tracks = DB::table('playlist_track')
-            ->join('tracks', 'tracks.TrackId', '=', 'playlist_track.TrackId')
-            ->where('PlaylistId', '=', $playlistID)
-            ->get();
+        // $tracks = DB::table('playlist_track')
+        //     ->join('tracks', 'tracks.TrackId', '=', 'playlist_track.TrackId')
+        //     ->where('PlaylistId', '=', $playlistID)
+        //     ->get();
+        $tracks = $playlist->Tracks;
 
         return view('playlist-details', [
             'playlist' => $playlist,
@@ -47,9 +51,12 @@ class PlaylistsController extends Controller
         ]);
 
         if ($validation->passes()) {
-            DB::table('playlists')->insert([
-                'Name' => $request->input('playlist')
-            ]);
+            // DB::table('playlists')->insert([
+            //     'Name' => $request->input('playlist')
+            // ]);
+            $playlist = new Playlist();
+            $playlist->Name = $request->input('playlist');
+            $playlist->save();
 
             return redirect('/playlists');
         } else {
