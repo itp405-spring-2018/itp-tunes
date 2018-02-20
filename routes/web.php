@@ -1,17 +1,25 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
-Route::get('/invoices', 'InvoicesController@index');
-Route::get('/invoices/{id}', 'InvoicesController@show');
+Route::get('/signup', 'SignupController@index');
+Route::post('/signup', 'SignupController@signup');
+Route::get('/login', 'LoginController@index');
+Route::post('/login', 'LoginController@login');
+Route::get('/logout', 'LoginController@logout');
+
 Route::get('/playlists', 'PlaylistsController@index');
 Route::get('/playlists/new', 'PlaylistsController@create');
 Route::get('/playlists/{id}', 'PlaylistsController@show');
 Route::post('/playlists', 'PlaylistsController@store');
 
-
-Route::get('/phpinfo', function() {
-  echo phpinfo();
+Route::middleware(['protected'])->group(function () {
+    Route::get('/invoices', 'InvoicesController@index');
+    Route::get('/invoices/{id}', 'InvoicesController@show');
+    Route::get('/profile', 'AdminController@index');
+    Route::get('/phpinfo', function() {
+      echo phpinfo();
+    });
 });
