@@ -7,6 +7,27 @@
   </head>
   <body>
     <div class="container">
+        <ul class="nav">
+            @if(Auth::check())
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/invoices">Invoices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Sign Up</a>
+                </li>
+            @endif
+        </ul>
+        <br>
         @yield('content')
     </div>
   </body>
