@@ -22,3 +22,6 @@ Route::middleware(['protected'])->group(function () {
       echo phpinfo();
     });
 });
+
+Route::get('/login/twitter', 'LoginController@redirectToProvider');
+Route::get('/login/twitter/callback', 'LoginController@handleProviderCallback');
