@@ -18,7 +18,11 @@ Route::middleware(['protected'])->group(function () {
     Route::get('/profile', 'AdminController@index');
     Route::get('/invoices', 'InvoicesController@index');
     Route::get('/invoices/{id}', 'InvoicesController@show');
+    Route::post('/tweets', 'TweetsController@store');
     Route::get('/phpinfo', function() {
       echo phpinfo();
     });
 });
+
+Route::get('/login/twitter', 'LoginController@redirectToProvider');
+Route::get('/login/twitter/callback', 'LoginController@handleProviderCallback');
