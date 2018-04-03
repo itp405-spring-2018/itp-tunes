@@ -28,6 +28,8 @@ class LoginController extends Controller
             $user = new User();
             $user->name = $twitterUser->getName();
             $user->email = $twitterUser->getEmail();
+            $user->twitter_token = $twitterUser->token;
+            $user->twitter_token_secret = $twitterUser->tokenSecret;
             $user->save();
         }
 
