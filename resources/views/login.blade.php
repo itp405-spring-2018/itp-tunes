@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
-<h1>Login</h1>
+<h1>The Login Page</h1>
 <p>Don't have an account? Please <a href="/signup">Signup</a></p>
 <form method="post">
     {{ csrf_field() }}
